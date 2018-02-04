@@ -10,5 +10,5 @@
 [![Python version](https://img.shields.io/pypi/pyversions/py-galactic.svg)](https://pypi.org/project/py-galactic/)
 [![Development Status](https://img.shields.io/pypi/status/py-galactic.svg)](https://pypi.org/project/py-galactic/)
 
-*py-galactic* is a package developed in Python for studying `Formal Concept Analysis <https://en.wikipedia.org/wiki/Formal_concept_analysis>`_.
+*py-galactic* is a package developed in Python for studying [Formal Concept Analysis](https://en.wikipedia.org/wiki/Formal_concept_analysis).
 
