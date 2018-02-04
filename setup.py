@@ -107,9 +107,6 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'pypandoc>=1.4',
-        'sphinx>=1.6',
-        'sphinx_rtd_theme>=0.2.4',
         'bitstring>=3.1'
     ],
 
@@ -127,7 +124,12 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={},
 
-    setup_requires=['pytest-runner'],
+    setup_requires=[
+        'pytest-runner',
+        'pypandoc>=1.4',
+        'sphinx>=1.6',
+        'sphinx_rtd_theme>=0.2.4'
+    ],
     tests_require=['pytest', 'coverage'],
 
     packages=[
