@@ -2,7 +2,7 @@
 [![Build Status](https://img.shields.io/travis/thegalactic/py-galactic/0.0.1.svg)](https://travis-ci.org/thegalactic/py-galactic/branches)
 [![Coveralls](https://img.shields.io/coveralls/github/thegalactic/py-galactic/0.0.1.svg)](https://coveralls.io/github/thegalactic/py-galactic?branch=0.0.1)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/thegalactic/py-galactic.svg)](https://scrutinizer-ci.com/g/thegalactic/py-galactic/)
-[![Docs](https://img.shields.io/readthedocs/py-galactic/0.0.1.svg)](http://py-galactic.readthedocs.io/en/0.0.1/)
+[![Docs](https://img.shields.io/readthedocs/py-galactic.svg)](http://py-galactic.readthedocs.io/en/latest/)
 [![PyPI version](https://img.shields.io/pypi/v/py-galactic.svg)](https://pypi.org/project/py-galactic/)
 [![PyPI format](https://img.shields.io/pypi/format/0.0.1/py-galactic.svg)](https://pypi.org/project/py-galactic/0.0.1/)
 [![License](https://img.shields.io/pypi/l/py-galactic/0.0.1.svg)](https://raw.githubusercontent.com/thegalactic/py-galactic/0.0.1/LICENSE)
