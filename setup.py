@@ -58,7 +58,7 @@ setup(
     },
 
     # The project's description
-    description='A package for Formal Context Analysis',
+    description='A package for Formal Concept Analysis',
     long_description=long_description,
 
     # The project's main homepage.
@@ -107,7 +107,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='formal context analysis',
+    keywords='formal concept analysis',
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
