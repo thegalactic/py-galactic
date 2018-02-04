@@ -34,6 +34,10 @@ except ImportError:
 version = '0.0.1'
 release = '0.0.1'
 name = 'py-galactic'
+author = 'The Galactic Organization'
+author_email='contact@thegalactic.org'
+copyright = '2018, The Galactic Organization'
+
 setup(
     name=name,
 
@@ -48,7 +52,8 @@ setup(
         'build_sphinx': {
             'project': ('setup.py', name),
             'version': ('setup.py', version),
-            'release': ('setup.py', release)
+            'release': ('setup.py', release),
+            'copyright': ('setup.py', copyright)
         }
     },
 
@@ -63,12 +68,12 @@ setup(
     download_url='https://github.com/thegalactic/py-galactic/archive/master.zip',
 
     # Author details
-    author='The Galactic Organization',
-    author_email='contact@thegalactic.org',
+    author=author,
+    author_email=author_email,
 
     # Maintainer details
-    maintainer='The Galactic Organization',
-    maintainer_email='contact@thegalactic.org',
+    maintainer=author,
+    maintainer_email=author_email,
 
     # Choose your license
     license='BSD-3-Clause',
