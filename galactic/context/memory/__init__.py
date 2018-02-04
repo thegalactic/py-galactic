@@ -459,7 +459,7 @@ class MemoryAttribute(
                 the underlying model
             name : :class:`str`
                 the attribute name
-            cls : `type <python:type>`
+            cls : :class:`type <python:type>`
                 the attribute type
 
         .. versionadded:: 0.0.1
