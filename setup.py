@@ -31,12 +31,11 @@ try:
 except ImportError:
     cmdclass = {}
 
-version = '0.0.1'
-release = '0.0.1'
 name = 'py-galactic'
+version = '0.0'
+release = '0.0.2'
 author = 'The Galactic Organization'
 author_email='contact@thegalactic.org'
-copyright = '2018, The Galactic Organization'
 
 setup(
     name=name,
@@ -53,7 +52,6 @@ setup(
             'project': ('setup.py', name),
             'version': ('setup.py', version),
             'release': ('setup.py', release),
-            'copyright': ('setup.py', copyright)
         }
     },
 
