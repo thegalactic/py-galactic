@@ -25,9 +25,12 @@ except (IOError, ImportError):
     with open(path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = f.read()
 
-from sphinx.setup_command import BuildDoc
+try:
+    from sphinx.setup_command import BuildDoc
+    cmdclass = {'build_sphinx': BuildDoc}
+except ImportError:
+    cmdclass = {}
 
-cmdclass = {'build_sphinx': BuildDoc}
 version = '0.0.1'
 release = '0.0.1'
 name = 'py-galactic'
