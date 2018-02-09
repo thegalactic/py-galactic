@@ -13,8 +13,7 @@
 [![Python version](https://img.shields.io/pypi/pyversions/py-galactic.svg)](https://pypi.org/project/py-galactic/)
 [![Development Status](https://img.shields.io/pypi/status/py-galactic.svg)](https://pypi.org/project/py-galactic/)
 [![Contributors](https://img.shields.io/badge/community-contributors-ff69b4.svg)](https://github.com/thegalactic/py-galactic/graphs/contributors/)
-[![Commits](https://img.shields.io/badge/community-commits-ff69b4.svg)](https://github.com/thegalactic/py-galactic/graphs/commit-activity/)
-[![Github commits (since latest release)](https://img.shields.io/github/commits-since/thegalactic/py-galactic/latest.svg)](https://github.com/thegalactic/py-galactic/graphs/commit-activity/)
+[![Commits](https://img.shields.io/github/commits-since/thegalactic/py-galactic/0.0.1.svg)](https://github.com/thegalactic/py-galactic/graphs/commit-activity/)
 [![Forks](https://img.shields.io/badge/community-forks-ff69b4.svg)](https://github.com/thegalactic/py-galactic/network/members/)
 
 *py-galactic* is a package developed in Python for studying [Formal Concept Analysis](https://en.wikipedia.org/wiki/Formal_concept_analysis).
