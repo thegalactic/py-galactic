@@ -43,6 +43,10 @@ class MemoryContextTest(TestCase):
             "{'mybool': False, 'myint': 1}",
             "The context has not been correctly initialized"
         )
+        with self.assertRaises(TypeError):
+            _ = MemoryContext(definition='bad value')
+        with self.assertRaises(TypeError):
+            _ = MemoryContext(individuals=1000)
 
     def test_population(self):
         context = MemoryContext(
