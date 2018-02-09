@@ -50,7 +50,10 @@ class Context(Generic[M, P, X, A], Container[Union[X, A]]):
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> print(context.population)
         ['0', '1']
         >>> print(context.model)
@@ -173,7 +176,10 @@ class Population(Generic[C, M, X], Mapping[str, X]):
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> population = context.population
         >>> print(population.context)
         {'population': ['0', '1'], 'model': {'mybool': <class 'bool'>, 'myint': <class 'int'>}}
@@ -297,7 +303,10 @@ class Model(Generic[C, P, A],
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> model = context.model
         >>> print(model.context)
         {'population': ['0', '1'], 'model': {'mybool': <class 'bool'>, 'myint': <class 'int'>}}
@@ -421,7 +430,10 @@ class Individual(Generic[C, P, M, X, A], Mapping[str, object]):
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> individual = context.population['0']
         >>> individual.identifier
         '0'
@@ -677,7 +689,10 @@ class Attribute(Generic[C, P, M, X, A], Mapping[str, object]):
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> attribute = context.model['mybool']
         >>> attribute.name
         'mybool'

@@ -33,35 +33,37 @@ class MemoryContext(
         >>> print(context)
         {'population': [], 'model': {}}
 
-    It's possible to create a context specifying the model.
+    It's possible to create a context specifying the model definition.
 
     Example
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int})
+        >>> context = MemoryContext(definition={'mybool': bool, 'myint': int})
         >>> print(context)
         {'population': [], 'model': {'mybool': <class 'bool'>, 'myint': <class 'int'>}}
 
-    It's possible to create a context specifying the model and the list of individual identifiers.
+    It's possible to create a context specifying the model definition and the list of individual
+    identifiers.
 
     Example
     -------
 
-        >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> print(context)
         {'population': ['0', '1'], 'model': {'mybool': <class 'bool'>, 'myint': <class 'int'>}}
 
-    It's possible to create a context specifying the model and the individual values.
+    It's possible to create a context specifying the model definition and the individual values.
 
     Example
     -------
 
-        >>> from galactic.context.memory import MemoryContext
         >>> context = MemoryContext(
-        ...     {'mybool': bool, 'myint': int},
-        ...     {'0': {'mybool': True}, '1':{'myint': 1}}
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals={'0': {'mybool': True}, '1':{'myint': 1}}
         ... )
         >>> {ident: str(context.population[ident]) for ident in context.population}
         {'0': "{'mybool': True, 'myint': 0}", '1': "{'mybool': False, 'myint': 1}"}
@@ -69,16 +71,12 @@ class MemoryContext(
     .. versionadded:: 0.0.1
     """
 
-    def __init__(
-            self,
-            definition: Mapping[str, type] = None,
-            individuals: Union[Iterable[str], Mapping[str, Mapping[str, object]]] = None
-    ):
+    def __init__(self, **kwargs):
         """
         Initialise a context in memory.
 
-        Parameters
-        ----------
+        Keyword Arguments
+        -----------------
             definition : :class:`Mapping[str, type] <python:collections.abc.Mapping>`
                 definition of the context by a mapping from name of attributes to their type
             individuals : :class:`Union[Iterable[str], Mapping[str, Mapping[str, object]]]`
@@ -91,9 +89,25 @@ class MemoryContext(
                 if an attribute is not in the definition
             ValueError
                 if a value does not correspond to an attribute type
+            TypeError
+                if the definition or if the individuals parameter are not of the correct type
 
         .. versionadded:: 0.0.1
         """
+        if 'definition' in kwargs:
+            definition = kwargs['definition']
+            if not isinstance(definition, Mapping):
+                raise TypeError
+        else:
+            definition = None
+
+        if 'individuals' in kwargs:
+            individuals = kwargs['individuals']
+            if not isinstance(individuals, (Iterable, Mapping)):
+                raise TypeError
+        else:
+            individuals = None
+
         super().__init__(
             model=MemoryModel(self, {} if definition is None else definition),
             population=MemoryPopulation(self, [])
@@ -124,7 +138,10 @@ class MemoryModel(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> model = context.model
         >>> model['mybool'] = int
         >>> model['myint2'] = int
@@ -137,7 +154,10 @@ class MemoryModel(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> model = context.model
         >>> del model['mybool']
         >>> {ident: str(context.population[ident]) for ident in context.population}
@@ -232,7 +252,10 @@ class MemoryPopulation(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> population = context.population
         >>> population['0'] = {'mybool': True}
         >>> population['2'] = {'myint': 1}
@@ -247,7 +270,10 @@ class MemoryPopulation(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> population = context.population
         >>> del population['0']
         >>> {ident: str(context.population[ident]) for ident in context.population}
@@ -332,7 +358,10 @@ class MemoryIndividual(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> individual = context.population['0']
         >>> individual['mybool'] = True
         >>> individual['myint'] = 1
@@ -434,7 +463,10 @@ class MemoryAttribute(
     -------
 
         >>> from galactic.context.memory import MemoryContext
-        >>> context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        >>> context = MemoryContext(
+        ...     definition={'mybool': bool, 'myint': int},
+        ...     individuals=['0', '1']
+        ... )
         >>> attribute = context.model['myint']
         >>> attribute['0'] = 3
         >>> attribute['1'] = 4
