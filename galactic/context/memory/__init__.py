@@ -5,7 +5,7 @@ The :mod:`galactic.context.memory` module give the ability to define
 :class:`Context <galactic.context.Context>` that resides in memory.
 """
 
-from typing import Mapping, Iterable, Union
+from typing import Mapping, Iterable
 
 from galactic.context import Context, Model, Population, Attribute, Individual
 from galactic.context.mixins import ContextHolder, PopulationHolder, ModelHolder, \
