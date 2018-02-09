@@ -639,4 +639,3 @@ class MemoryAttributeTest(TestCase):
             "{'name': 'mybool', 'type': <class 'bool'>}",
             "The iter must be correct"
         )
-
