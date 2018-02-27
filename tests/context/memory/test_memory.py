@@ -7,13 +7,18 @@ from galactic.context.memory import *
 
 class MemoryContextTest(TestCase):
     def test___init__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             str(context),
             "{'population': [], 'model': {'mybool': <class 'bool'>, 'myint': <class 'int'>}}",
             "The context has not been correctly initialized"
         )
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             str(context.population),
             "['0', '1']",
@@ -25,8 +30,8 @@ class MemoryContextTest(TestCase):
             "The context has not been correctly initialized"
         )
         context = MemoryContext(
-            {'mybool': bool, 'myint': int},
-            {'0': {'mybool': True}, '1': {'myint': 1}}
+            definition={'mybool': bool, 'myint': int},
+            individuals={'0': {'mybool': True}, '1': {'myint': 1}}
         )
         self.assertEqual(
             str(context.population['0']),
@@ -38,23 +43,34 @@ class MemoryContextTest(TestCase):
             "{'mybool': False, 'myint': 1}",
             "The context has not been correctly initialized"
         )
+        with self.assertRaises(TypeError):
+            _ = MemoryContext(definition='bad value')
+        with self.assertRaises(TypeError):
+            _ = MemoryContext(individuals=1000)
 
     def test_population(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertTrue(
             isinstance(context.population, Population),
             "The property population is instance of Population"
         )
 
     def test_model(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertTrue(
             isinstance(context.model, Model),
             "The property model is instance of Model"
         )
 
     def test___contains__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertTrue(
             context.population['0'] in context,
             "The first individual of the context is in the context"
@@ -63,31 +79,44 @@ class MemoryContextTest(TestCase):
             context.model['mybool'] in context,
             "The first attribute of the context is in the context"
         )
-        other = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        other = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertFalse(
             other.population['0'] in context,
             "An unknown element is not in the context"
         )
 
     def test___bool__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertTrue(
             context,
             "The context is not empty"
         )
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertFalse(
             context,
             "The context is empty"
         )
-        context = MemoryContext({}, ['0', '1'])
+        context = MemoryContext(
+            individuals=['0', '1']
+        )
         self.assertFalse(
             context,
             "The context is empty"
         )
 
     def test___str__(self):
-        context = MemoryContext({'mybool': bool}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool},
+            individuals=['0']
+        )
         self.assertEqual(
             str(context),
             "{'population': ['0'], 'model': {'mybool': <class 'bool'>}}",
@@ -97,7 +126,10 @@ class MemoryContextTest(TestCase):
 
 class MemoryPopulationTest(TestCase):
     def test_context(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             context.population.context,
             context,
@@ -105,7 +137,10 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test_model(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             context.population.model,
             context.model,
@@ -113,7 +148,10 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test___getitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             str(context.population['0']),
             "{'mybool': False, 'myint': 0}",
@@ -121,7 +159,9 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test___setitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         context.population['0'] = {}
         self.assertEqual(
             str(context.population['0']),
@@ -138,7 +178,10 @@ class MemoryPopulationTest(TestCase):
             context.population['0'] = {'abc': 1}
 
     def test___delitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         del context.population['0']
         self.assertFalse(
             bool(context.population),
@@ -146,7 +189,10 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test___len__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             len(context.population),
             2,
@@ -154,7 +200,9 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test___bool__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertFalse(
             bool(context.population),
             "The population must be empty"
@@ -166,7 +214,10 @@ class MemoryPopulationTest(TestCase):
         )
 
     def test___iter__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         for identifier, individual in context.population.items():
             self.assertTrue(
                 isinstance(individual, Individual),
@@ -178,7 +229,10 @@ class MemoryPopulationTest(TestCase):
             )
 
     def test___str__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             str(context.population),
             "['0', '1']",
@@ -188,7 +242,9 @@ class MemoryPopulationTest(TestCase):
 
 class MemoryModelTest(TestCase):
     def test_context(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             context.model.context,
             context,
@@ -196,7 +252,9 @@ class MemoryModelTest(TestCase):
         )
 
     def test_population(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             context.model.population,
             context.population,
@@ -204,7 +262,9 @@ class MemoryModelTest(TestCase):
         )
 
     def test___getitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             str(context.model['mybool']),
             "{'name': 'mybool', 'type': <class 'bool'>}",
@@ -213,8 +273,8 @@ class MemoryModelTest(TestCase):
 
     def test___setitem__(self):
         context = MemoryContext(
-            {'mybool': bool, 'myint': int},
-            {'0': {'mybool': True}, '1': {'myint': 1}}
+            definition={'mybool': bool, 'myint': int},
+            individuals={'0': {'mybool': True}, '1': {'myint': 1}}
         )
         context.model['mybool'] = bool
         self.assertEqual(
@@ -243,7 +303,10 @@ class MemoryModelTest(TestCase):
         )
 
     def test___delitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         del context.model['mybool']
         self.assertEqual(
             str(context),
@@ -257,7 +320,9 @@ class MemoryModelTest(TestCase):
         )
 
     def test___len__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             len(context.model),
             2,
@@ -265,14 +330,18 @@ class MemoryModelTest(TestCase):
         )
 
     def test___bool__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertTrue(
             bool(context.model),
             "The bool representation of the model is not correct"
         )
 
     def test___iter__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             list(iter(context.model)),
             ['mybool', 'myint'],
@@ -280,7 +349,9 @@ class MemoryModelTest(TestCase):
         )
 
     def test___str__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int})
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int}
+        )
         self.assertEqual(
             str(context.model),
             "{'mybool': <class 'bool'>, 'myint': <class 'int'>}",
@@ -290,7 +361,10 @@ class MemoryModelTest(TestCase):
 
 class MemoryIndividualTest(TestCase):
     def test_identifier(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0'].identifier,
             '0',
@@ -298,7 +372,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test_population(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0'].population,
             context.population,
@@ -306,7 +383,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test_context(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0'].context,
             context,
@@ -314,7 +394,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test_model(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0'].model,
             context.model,
@@ -322,7 +405,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test_value(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0'].value(context.model['mybool']),
             bool(),
@@ -333,12 +419,18 @@ class MemoryIndividualTest(TestCase):
             int(),
             "The value 'myint' of the individual named '0' must be the 0"
         )
-        other = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        other = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         with self.assertRaises(ValueError):
             _ = context.population['0'].value(other.model['myint'])
 
     def test___setitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         context.population['0']['mybool'] = True
         context.population['0']['myint'] = 1
         self.assertEqual(
@@ -359,7 +451,10 @@ class MemoryIndividualTest(TestCase):
             context.population['0']['myint'] = 'abc'
 
     def test___getitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.population['0']['mybool'],
             bool(),
@@ -374,12 +469,18 @@ class MemoryIndividualTest(TestCase):
             _ = context.population['0']['unknown']
 
     def test___delitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         with self.assertRaises(ValueError):
             del context.population['0']['myint']
 
     def test___len__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             len(context.population['0']),
             2,
@@ -387,7 +488,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test___eq__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertTrue(
             context.population['0'] == context.population['0'],
             "The individual is equal to itself"
@@ -396,14 +500,20 @@ class MemoryIndividualTest(TestCase):
             context.population['0'] == context.population['1'],
             "Two different individuals are unequal"
         )
-        other = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        other = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertFalse(
             context.population['0'] == other.population['0'],
             "Two individuals from two different contexts are unequal"
         )
 
     def test___iter__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             list(iter(context.population['0'])),
             ['mybool', 'myint'],
@@ -411,7 +521,10 @@ class MemoryIndividualTest(TestCase):
         )
 
     def test___str__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             str(context.population['0']),
             "{'mybool': False, 'myint': 0}",
@@ -421,7 +534,10 @@ class MemoryIndividualTest(TestCase):
 
 class MemoryAttributeTest(TestCase):
     def test_name(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.model['mybool'].name,
             'mybool',
@@ -429,7 +545,10 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test_type(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0']
+        )
         self.assertEqual(
             context.model['mybool'].type,
             bool,
@@ -437,7 +556,10 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test_value(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             context.model['mybool'].value(context.population['0']),
             context.population['0'].value(context.model['mybool']),
@@ -445,7 +567,10 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test___getitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             context.model['mybool']['0'],
             context.population['0']['mybool'],
@@ -453,7 +578,10 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test___setitem__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         context.model['mybool']['0'] = True
         context.model['myint']['0'] = 1
         self.assertEqual(
@@ -474,7 +602,10 @@ class MemoryAttributeTest(TestCase):
             context.model['myint']['0'] = 'abc'
 
     def test___len__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             len(context.model['mybool']),
             2,
@@ -482,14 +613,20 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test___eq__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertTrue(
             context.model['mybool'] == context.model['mybool'],
             "The equality must be correct"
         )
 
     def test___iter__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             list(iter(context.model['mybool'])),
             ['0', '1'],
@@ -497,10 +634,12 @@ class MemoryAttributeTest(TestCase):
         )
 
     def test___str__(self):
-        context = MemoryContext({'mybool': bool, 'myint': int}, ['0', '1'])
+        context = MemoryContext(
+            definition={'mybool': bool, 'myint': int},
+            individuals=['0', '1']
+        )
         self.assertEqual(
             str(context.model['mybool']),
             "{'name': 'mybool', 'type': <class 'bool'>}",
             "The iter must be correct"
         )
-

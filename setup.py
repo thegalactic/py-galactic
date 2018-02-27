@@ -31,12 +31,11 @@ try:
 except ImportError:
     cmdclass = {}
 
-version = '0.0.1'
-release = '0.0.1'
 name = 'py-galactic'
+version = '0.0'
+release = '0.0.2'
 author = 'The Galactic Organization'
 author_email='contact@thegalactic.org'
-copyright = '2018, The Galactic Organization'
 
 setup(
     name=name,
@@ -53,12 +52,11 @@ setup(
             'project': ('setup.py', name),
             'version': ('setup.py', version),
             'release': ('setup.py', release),
-            'copyright': ('setup.py', copyright)
         }
     },
 
     # The project's description
-    description='A package for Formal Context Analysis',
+    description='A package for Formal Concept Analysis',
     long_description=long_description,
 
     # The project's main homepage.
@@ -107,7 +105,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='formal context analysis',
+    keywords='formal concept analysis',
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's

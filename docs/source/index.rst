@@ -25,6 +25,7 @@ py-galactic
     :caption: Reference
 
     api.context.rst
+    api.type.rst
 
 Indices and tables
 ==================
