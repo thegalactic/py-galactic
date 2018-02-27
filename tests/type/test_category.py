@@ -60,7 +60,7 @@ class ImpreciseCategoryTest(TestCase):
             "B does not belong to the color"
         )
         with self.assertRaises(ValueError):
-            'X' in color
+            _ = 'X' in color
 
     def test___len__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -98,7 +98,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] is not a subset of ['R', 'B']"
         )
         with self.assertRaises(TypeError):
-            color1 <= 'dummy'
+            _ = color1 <= 'dummy'
 
     def test___lt__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -118,7 +118,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] is not a strict subset of ['R', 'B']"
         )
         with self.assertRaises(TypeError):
-            color1 < 'dummy'
+            _ = color1 < 'dummy'
 
     def test___eq__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -134,7 +134,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R'] is equal to ['R']"
         )
         with self.assertRaises(TypeError):
-            color1 == 'dummy'
+            _ = color1 == 'dummy'
 
     def test___gt__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -154,7 +154,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] is not a strict superset of ['R', 'B']"
         )
         with self.assertRaises(TypeError):
-            color1 > 'dummy'
+            _ = color1 > 'dummy'
 
     def test___and__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -167,7 +167,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] & ['R', 'B'] = ['R']"
         )
         with self.assertRaises(TypeError):
-            color1 & 'dummy'
+            _ = color1 & 'dummy'
 
     def test___or__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -180,7 +180,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] | ['R', 'B'] = ['R', 'G', 'B']"
         )
         with self.assertRaises(TypeError):
-            color1 | 'dummy'
+            _ = color1 | 'dummy'
 
     def test___sub__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -193,7 +193,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] - ['R', 'B'] = ['B']"
         )
         with self.assertRaises(TypeError):
-            color1 - 'dummy'
+            _ = color1 - 'dummy'
 
     def test___xor__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -206,7 +206,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] - ['R', 'B'] = ['G', 'B']"
         )
         with self.assertRaises(TypeError):
-            color1 ^ 'dummy'
+            _ = color1 ^ 'dummy'
 
     def test_isdisjoint(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -226,7 +226,7 @@ class ImpreciseCategoryTest(TestCase):
             "bool(['B'] & ['R', 'G']) = True"
         )
         with self.assertRaises(TypeError):
-            color1.isdisjoint(125)
+            _ = color1.isdisjoint(125)
 
     def test_issubset(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -246,7 +246,7 @@ class ImpreciseCategoryTest(TestCase):
             "['B'] is a subset of ['B', 'G']"
         )
         with self.assertRaises(TypeError):
-            color1.issubset(125)
+            _ = color1.issubset(125)
 
     def test_issuperset(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -266,7 +266,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'B'] is a superset of ['R']"
         )
         with self.assertRaises(TypeError):
-            color1.issuperset(125)
+            _ = color1.issuperset(125)
 
     def test_union(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -317,7 +317,7 @@ class ImpreciseCategoryTest(TestCase):
             "['R', 'G'] ^ ['B', 'G'] = ['B', 'R]"
         )
         with self.assertRaises(TypeError):
-            color1.symmetric_difference(125)
+            _ = color1.symmetric_difference(125)
 
     def test___repr__(self):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
@@ -343,7 +343,7 @@ class CategoryTest(TestCase):
             "The string representation of the class is not correct"
         )
         with self.assertRaises(ValueError):
-            category('Color')
+            _ = category('Color')
 
     def test___new__(self):
         Color = category('Color', ['R', 'G', 'B'])
@@ -358,7 +358,7 @@ class CategoryTest(TestCase):
             "The string representation of the instance is not correct"
         )
         with self.assertRaises(ValueError):
-            Color('Y')
+            _ = Color('Y')
 
     def test___repr__(self):
         Color = category('Color', ['R', 'G', 'B'])
