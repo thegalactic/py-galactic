@@ -124,7 +124,6 @@ class ImpreciseCategoryTest(TestCase):
         Color = imprecise_category('Color', ['R', 'G', 'B'])
         color1 = Color(['R'])
         color2 = Color(['R', 'G'])
-        color3 = Color(['R', 'B'])
         self.assertFalse(
             color1 == color2,
             "['R'] is not equal to ['R', 'G']"
