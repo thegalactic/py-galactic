@@ -24,7 +24,7 @@
 # General information about the project.
 project = 'py-galactic'
 version = '0.0'
-release = '0.0.3'
+release = '0.0.4'
 author = 'The Galactic Organization'
 copyright = '2018, The Galactic Organization'
 

@@ -33,7 +33,7 @@ except ImportError:
 
 name = 'py-galactic'
 version = '0.0'
-release = '0.0.3'
+release = '0.0.4'
 author = 'The Galactic Organization'
 author_email='contact@thegalactic.org'
 
