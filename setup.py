@@ -140,6 +140,7 @@ setup(
     packages=[
         'galactic',
         'galactic.context',
-        'galactic.context.memory'
+        'galactic.context.memory',
+        'galactic.type'
     ],
 )
