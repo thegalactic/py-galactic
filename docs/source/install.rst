@@ -30,7 +30,7 @@ To upgrade to the most recent release, use
 Getting Help
 ------------
 
-If you have any difficulties with *py-galactic*, please feel welcome to `file an issue`_ on github so that we can help.
+.. important:: If you have any difficulties with *py-galactic*, please feel welcome to `file an issue`_ on github so that we can help.
 
 .. _file an issue: https://github.com/thegalactic/py-galactic/issues
 

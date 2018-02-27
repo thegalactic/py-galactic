@@ -22,9 +22,9 @@ class ImpreciseCategory(Set[object]):
 
     __slots__ = {'_bits'}
 
-    _items: Mapping[object, int] = {}
-    _instances: MutableMapping[Bits, 'ImpreciseCategory']
-    _cache: bool = False
+    _items = {}  # Mapping[object, int]
+    _instances = {}  # MutableMapping[Bits, 'ImpreciseCategory']
+    _cache = False  # bool
 
     @property
     def bits(self):

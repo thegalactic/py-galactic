@@ -33,7 +33,7 @@ except ImportError:
 
 name = 'py-galactic'
 version = '0.0'
-release = '0.0.2'
+release = '0.0.3'
 author = 'The Galactic Organization'
 author_email='contact@thegalactic.org'
 
@@ -140,6 +140,7 @@ setup(
     packages=[
         'galactic',
         'galactic.context',
-        'galactic.context.memory'
+        'galactic.context.memory',
+        'galactic.type'
     ],
 )
