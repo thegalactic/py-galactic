@@ -5,7 +5,7 @@ The :mod:`galactic.context.memory` module give the ability to define
 :class:`Context <galactic.context.Context>` that resides in memory.
 """
 
-from typing import Mapping, Iterable
+from typing import Mapping, Iterable, Union
 
 from galactic.context import Context, Model, Population, Attribute, Individual
 from galactic.context.mixins import ContextHolder, PopulationHolder, ModelHolder, \
@@ -94,19 +94,8 @@ class MemoryContext(
 
         .. versionadded:: 0.0.1
         """
-        if 'definition' in kwargs:
-            definition = kwargs['definition']
-            if not isinstance(definition, Mapping):
-                raise TypeError
-        else:
-            definition = None
-
-        if 'individuals' in kwargs:
-            individuals = kwargs['individuals']
-            if not isinstance(individuals, (Iterable, Mapping)):
-                raise TypeError
-        else:
-            individuals = None
+        definition = MemoryContext._definition(**kwargs)
+        individuals = MemoryContext._individuals(**kwargs)
 
         super().__init__(
             model=MemoryModel(self, {} if definition is None else definition),
@@ -120,6 +109,57 @@ class MemoryContext(
             if individuals is not None:
                 for identifier in individuals:
                     self.population[identifier] = {}
+
+    @staticmethod
+    def _definition(**kwargs) -> Mapping[str, type]:
+        """
+        Get the definition from the keyword arguments.
+
+        Keyword arguments
+        -----------------
+            definition : :class:`Mapping[str, type] <python:collections.abc.Mapping>`
+                definition of the context by a mapping from name of attributes to their type
+
+        Raises
+        ------
+            TypeError
+                if the definition parameter is not of the correct type
+
+        .. versionadded:: 0.0.2
+        """
+        if 'definition' in kwargs:
+            definition = kwargs['definition']
+            if not isinstance(definition, Mapping):
+                raise TypeError
+        else:
+            definition = None
+        return definition
+
+    @staticmethod
+    def _individuals(**kwargs) -> Union[Iterable[str], Mapping[str, Mapping[str, object]]]:
+        """
+        Get the individuals from the keyword arguments.
+
+        Keyword arguments
+        -----------------
+            individuals : :class:`Union[Iterable[str], Mapping[str, Mapping[str, object]]]`
+                initial iterable of individual identifiers or a mapping from individual
+                identifiers to individual values
+
+        Raises
+        ------
+            TypeError
+                if the definition parameter is not of the correct type
+
+        .. versionadded:: 0.0.2
+        """
+        if 'individuals' in kwargs:
+            individuals = kwargs['individuals']
+            if not isinstance(individuals, (Iterable, Mapping)):
+                raise TypeError
+        else:
+            individuals = None
+        return individuals
 
 
 # pylint: disable=too-few-public-methods,abstract-method,super-init-not-called
