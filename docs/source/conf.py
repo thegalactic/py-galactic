@@ -73,7 +73,10 @@ napoleon_use_param = True
 napoleon_use_rtype = True
 
 # intersphinx setting
-intersphinx_mapping = {'python': ('http://docs.python.org/3', None)}
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/3', None),
+    'bitstring': ('http://pythonhosted.org/bitstring', None)
+}
 
 autodoc_member_order = 'bysource'
 

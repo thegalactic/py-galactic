@@ -92,7 +92,7 @@ class ConcreteAttribute(_Mixin):
             name : :class:`str`
                 the attribute name
 
-            cls : :class:`type <python:type>`
+            type : :class:`type <python:type>`
                 the attribute type
 
         .. versionadded:: 0.0.1
